@@ -1,138 +1,57 @@
-import java.text.DecimalFormat;
-import java.util.*;
 
 public class Main {
     public static void main(String [] args){
 
-        double salary = inputValidation();
+       // SalaryMenu sm = new SalaryMenu();
 
-        double mothly = monthlyPay(salary);
-        double weekly = weeklyPay(salary);
-        double daily = dailyPay(weekly);
-        double hourly = hourlyPay(daily);
-        double minutely = minutelyPay(hourly);
+       
+        int daysOfWeek;
+        double hoursOfDay;
+        double payByHour =0;
+        double hoursAWeek =0;
+        double salary=0;
 
-        menu(salary, mothly, weekly, daily, hourly, minutely);
-    }
+        System.out.println("Do you know your annual salary?");
+        String yesNo = PromptsandInput.inputValidationYesNo();
 
-    
-    public static double inputValidation(){
-        System.out.println("Please enter your annual salary (numerical values only): ");
+        if (yesNo.equals("yes")) {
+            salary = PromptsandInput.inputValidationSalary();
 
-        Scanner input = new Scanner (System.in);
-        double salary;
+            System.out.println("Just to make sure, do you work a typical 9 - 5?  (5 days a week, 8 hours a day) ");
+            yesNo = PromptsandInput.inputValidationYesNo();
 
-        //While(true) Runs forever unless break or return is used
-        //Great for input validation and menus
-        while (true) {
-            if (input.hasNextDouble()) {
-                salary = input.nextDouble();
-                    return salary;
-            } else {
-                System.out.println("Error: Salary must be a numerical value.");
-                System.out.println("Example: 75000, 750000.00, 75,000 or 75,000.00");
-                input.next(); 
+            if (yesNo.equals("yes")) {
+                daysOfWeek = 5;
+                hoursOfDay = 8;
+                
+                /*hoursAWeek = daysOfWeek * hoursOfDay;
+                salary = SalaryMenu.annualSalary(payByHour, hoursAWeek);*/
+               
+            }else{
+                daysOfWeek = PromptsandInput.inputValidationDaysOfWeek();
+                hoursOfDay = PromptsandInput.inputValidationHoursOfDay();
+
+                /*hoursAWeek = daysOfWeek * hoursOfDay;
+                salary = SalaryMenu.annualSalary(payByHour, hoursAWeek);*/
             }
-            System.out.print("Please enter your annual salary (numerical values only): ");
+            
+        } else {
+
+            daysOfWeek = PromptsandInput.inputValidationDaysOfWeek();
+            hoursOfDay = PromptsandInput.inputValidationHoursOfDay();
+            payByHour =  PromptsandInput.inputValidationPayByHour();
+            hoursAWeek = daysOfWeek * hoursOfDay;
+            salary = SalaryMenu.annualSalary(payByHour, hoursAWeek);
         }
-    
+
+        double mothly = SalaryMenu.monthlyPay(salary);
+        double weekly = SalaryMenu.weeklyPay(salary);
+        double daily = SalaryMenu.dailyPay(weekly, daysOfWeek);
+        double hourly = SalaryMenu.hourlyPay(daily, hoursOfDay);
+        double minutely = SalaryMenu.minutelyPay(hourly);
+
+        SalaryMenu.menu(salary, mothly, weekly, daily, hourly, minutely, daysOfWeek, hoursOfDay, payByHour, hoursAWeek);
     }
 
-    public static void menuOptions(){
-        System.out.println("Input '1 - 5' to calculate your earnings. Input '6' to CHANGE salary. Input '7' to EXIT.");
-        System.out.println("------------------------------------------------------------\n");
-        System.out.println("1 - MONTHLY Earnings");
-        System.out.println("2 - WEEKLY Earnings");
-        System.out.println("3 - DAILY Earnings");
-        System.out.println("4 - HOURLY Earnings");
-        System.out.println("5 - MINUTELY Earnings");
-        System.out.println("6 - CHANGE Salary");
-        System.out.println("7 - EXIT");
-    }
 
-    public static void menu(double s, double m, double w, double d, double h, double min){
-
-
-        DecimalFormat df = new DecimalFormat("#.##");
-     
-        System.out.println("The annual salary you've entered is: $" + df.format(s));
-        menuOptions();
-        
-        Scanner choice= new Scanner(System.in);
-        int menuChoice = choice.nextInt();
-
-        switch (menuChoice) {
-            case 1:
-            System.out.println("The amount you earn every month is: $" + df.format(m) + "\n");
-            menu(s, m, w, d, h, min);
-            break;
-
-            case 2:
-            System.out.println("The amount you earn every week is: $" + df.format(w) + "\n");
-            menu(s, m, w, d, h, min);
-            break;
-
-            case 3:
-            System.out.println("The amount you earn every day is: $" + df.format(d) + "\n");
-            menu(s, m, w, d, h, min);
-            break;
-
-            case 4:
-            System.out.println("The amount you earn every hour is: $" + df.format(h) + "\n");
-            menu(s, m, w, d, h, min);
-            break;
-
-            case 5:
-            System.out.println("The amount you earn every minute is: $" + df.format(min) + "\n");
-            menu(s, m, w, d, h, min);
-            break;
-
-            case 6:
-            s = inputValidation();
-            m = monthlyPay(s);
-            w = weeklyPay(s);
-            d = dailyPay(w);
-            h = hourlyPay(d);
-            min = minutelyPay(h);
-            menu(s, m, w, d, h, min);
-            break;
-
-            case 7:
-            System.out.println("Successfully exited the program. Thank you for using the Salary Calculator app!");
-            break;
-
-            default:
-                System.out.println("Input Invalid. Please input '1-5' to calculate your earnings \n");
-                menu(s, m, w, d, h, min);
-                break;
-        }
-    } 
-
-
-    public static double monthlyPay (double x) {
-        double monthly = x/12;
-        return monthly;
-    }
-
-    public static double weeklyPay (double x) {
-        double weekly = x/52;
-        return weekly;
-    }
-
-    public static double dailyPay (double x) {
-        double daily = x/5;
-        return daily;
-    }
-
-    public static double hourlyPay (double x) {
-        double hourly = x/8;
-        return hourly;
-
-    }
-
-    public static double minutelyPay (double x) {
-        double minutelyPay = x/60;
-        return minutelyPay;
-    }
-    
 }
