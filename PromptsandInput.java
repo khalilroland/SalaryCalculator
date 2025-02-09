@@ -11,11 +11,33 @@ public class PromptsandInput {
             System.out.println("Please enter 'yes' or 'no' : ");
             String yesNo = yn.next().toLowerCase(); // Convert input to lowercase to make it case-insensitive
             
-                if (yesNo.equals("yes") || yesNo.equals ("no")) {
+                if (yesNo.equals("yes") || yesNo.equals ("no") || yesNo.equals ("y") || yesNo.equals ("n")) {
                     return yesNo;
                 }
             
             System.out.println("Invalid input. Please enter 'yes' or 'no': ");
+        }
+    }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+    public static int inputValidationWeeksAYear(){
+
+        System.out.println("Enter how many weeks of the year you work: ");
+        
+        Scanner dow = new Scanner (System.in);
+        int daysOfWeek;
+
+        while (true) {
+            if (dow.hasNextInt()) {
+                daysOfWeek = dow.nextInt();
+                if (daysOfWeek <= 52 && daysOfWeek >= 1) { // Ensure valid range
+                    return daysOfWeek;
+                }
+            } else {
+                dow.next(); 
+            }
+            System.out.println("Error: Invalid Input. Must be a number between '1 - 52'. ");
+            System.out.println("Enter how many weeks of the year you work: ");
         }
     }
 
@@ -46,7 +68,7 @@ public class PromptsandInput {
  
         Scanner hod = new Scanner (System.in);
 
-        System.out.println("Please enter how many hours per day you work: ");
+        System.out.println("Please enter how many hours a day you work: ");
         double hoursOfDay;
 
         //While(true) Runs forever unless break or return is used
