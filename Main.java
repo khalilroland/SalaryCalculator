@@ -70,7 +70,7 @@ public class Main {
                     }
 
             hoursAWeek = SalaryMenu.hoursAweek(daysOfWeek, hoursOfDay);
-            salary = SalaryMenu.annualSalary(payByHour, hoursAWeek);
+            salary = SalaryMenu.annualSalary(payByHour, hoursAWeek, weeksAYear);
         }
 
         double mothly = SalaryMenu.monthlyPay(salary);
@@ -79,7 +79,7 @@ public class Main {
         payByHour= SalaryMenu.hourlyPay(daily, hoursOfDay);
         double minutely = SalaryMenu.minutelyPay(payByHour);
 
-        SalaryMenu.menu(salary, mothly, weekly, daily, payByHour, minutely, daysOfWeek, hoursOfDay, payByHour, hoursAWeek, weeksAYear);
+        SalaryMenu.menu(salary, mothly, weekly, daily, minutely, daysOfWeek, hoursOfDay, payByHour, hoursAWeek, weeksAYear);
     }
 
 

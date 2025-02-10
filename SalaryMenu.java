@@ -16,7 +16,7 @@ public class SalaryMenu {
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
-    public static void menu(double s, double m, double w, double d, double h, double min, int dow, double hod, double pbh, double haw, int way){
+    public static void menu(double s, double m, double w, double d, double min, int dow, double hod, double pbh, double haw, int way){
 
         String yesNo;
         DecimalFormat df = new DecimalFormat("#.##");
@@ -37,7 +37,7 @@ public class SalaryMenu {
         System.out.println("Amount you earn every MONTH: $" + df.format(m));
         System.out.println("Amount you earn every WEEK: $" + df.format(w));
         System.out.println("Amount you earn every DAY: $" + df.format(d));
-        System.out.println("Amount you earn every HOUR: $" + df.format(h));
+        System.out.println("Amount you earn every HOUR: $" + df.format(pbh));
         System.out.println("Amount you earn every MINUTE: $" + df.format(min) +"\n");
         System.out.println("-----------------------------------------------------\n");
 
@@ -52,10 +52,11 @@ public class SalaryMenu {
             m = monthlyPay(s);
             w = weeklyPay(s, way);
             d = dailyPay(w, dow);
-            h = hourlyPay(d, hod);
-            min = minutelyPay(h);
+            pbh = hourlyPay(d, hod);
+            min = minutelyPay(pbh);
             
-            menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
+            menu(s, m, w, d, min, dow, hod, pbh, haw, way);
+
             break;
 
             case 2:
@@ -65,11 +66,11 @@ public class SalaryMenu {
             m = monthlyPay(s);
             w = weeklyPay(s,way);
             d = dailyPay(w, dow);
-            h = hourlyPay(d, hod);
-            min = minutelyPay(h);
-            menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
+            pbh = hourlyPay(d, hod);
+            min = minutelyPay(pbh);
+
+            menu(s, m, w, d, min, dow, hod, pbh, haw, way);
             
-            menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
             break;
 
             case 3:
@@ -79,10 +80,11 @@ public class SalaryMenu {
             m = monthlyPay(s);
             w = weeklyPay(s,way);
             d = dailyPay(w, dow);
-            h = hourlyPay(d, hod);
-            min = minutelyPay(h);
-            
-            menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
+            pbh = hourlyPay(d, hod);
+            min = minutelyPay(pbh);
+        
+            menu(s, m, w, d, min, dow, hod, pbh, haw, way);
+
             break;
 
             case 4:
@@ -90,36 +92,81 @@ public class SalaryMenu {
             m = monthlyPay(s);
             w = weeklyPay(s,way);
             d = dailyPay(w, dow);
-            h = hourlyPay(d, hod);
-            min = minutelyPay(h);
-            menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
+            pbh = hourlyPay(d, hod);
+            min = minutelyPay(pbh);
+            menu(s, m, w, d, min, dow, hod, pbh, haw, way);
             
-            menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
+   
             break;
 
             case 5:
-            dow = PromptsandInput.inputValidationDaysOfWeek();
-            hod = PromptsandInput.inputValidationHoursOfDay();
-            pbh =  PromptsandInput.inputValidationPayByHour();
-            haw = hoursAweek(dow, hod);
-            
-            System.out.println("Do you work 52 weeks of the year? ");
+
+            System.out.println("Do you know your annual salary?");
             yesNo = PromptsandInput.inputValidationYesNo();
+    
             if (yesNo.equals("yes") || yesNo.equals("y")) {
-                way = 52;
+                s = PromptsandInput.inputValidationSalary();
+    
+                System.out.println("Just to make sure, do you work a typical 9 - 5?  (5 days a week, 8 hours a day) ");
+                yesNo = PromptsandInput.inputValidationYesNo();
+    
+                if (yesNo.equals("yes") || yesNo.equals("y")) {
+                    dow = 5;
+                    hod = 8;
+                    haw = hoursAweek(dow, hod);
+    
+                    System.out.println("Finally, do you work 52 weeks of the year? ");
+                    yesNo = PromptsandInput.inputValidationYesNo();
+    
+                    if (yesNo.equals("yes") || yesNo.equals("y")) {
+                    way = 52;
+                    }else{
+    
+                        way = PromptsandInput.inputValidationWeeksAYear();
+                    }
+    
+                   
                 }else{
-
-                    way = PromptsandInput.inputValidationWeeksAYear();
+                    dow = PromptsandInput.inputValidationDaysOfWeek();
+                    hod = PromptsandInput.inputValidationHoursOfDay();
+                    haw = hoursAweek(dow, hod);
+    
+                    System.out.println("Finally, do you work 52 weeks of the year? ");
+                    yesNo = PromptsandInput.inputValidationYesNo();
+                    if (yesNo.equals("yes") || yesNo.equals("y")) {
+                        way = 52;
+                        }else{
+        
+                            way = PromptsandInput.inputValidationWeeksAYear();
+                        }
                 }
+                
+            } else {
+    
+                dow = PromptsandInput.inputValidationDaysOfWeek();
+                hod = PromptsandInput.inputValidationHoursOfDay();
+                pbh =  PromptsandInput.inputValidationPayByHour();
+    
+                System.out.println("Do you work 52 weeks of the year? ");
+                yesNo = PromptsandInput.inputValidationYesNo();
+                    if (yesNo.equals("yes") || yesNo.equals("y")) {
+                        way = 52;
+                        }else{
+        
+                            way= PromptsandInput.inputValidationWeeksAYear();
+                        }
+    
+                haw = hoursAweek(dow, hod);
+                s = annualSalary(pbh, haw, way);
+            }
 
-            s = SalaryMenu.annualSalary(pbh, haw);
             m = monthlyPay(s);
-            w = weeklyPay(s,way);
+            w = weeklyPay(s, way);
             d = dailyPay(w, dow);
-            h = hourlyPay(d, hod);
-            min = minutelyPay(h);
+            pbh = hourlyPay(d, hod);
+            min = minutelyPay(pbh);
 
-            menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
+            menu(s, m, w, d, min, dow, hod, pbh, haw, way);
             break;
 
             case 6:
@@ -128,7 +175,7 @@ public class SalaryMenu {
 
             default:
                 System.out.println("Input Invalid. Please input '1-5' to calculate your earnings \n");
-                menu(s, m, w, d, h, min, dow, hod, pbh, haw, way);
+                menu(s, m, w, d, min, dow, hod, pbh, haw, way);
                 break;
         }
     } 
@@ -160,9 +207,9 @@ public class SalaryMenu {
         return minutelyPay;
     }
 
-    public static double annualSalary (double x, double y){
+    public static double annualSalary (double x, double y, int z){
         double annualSalary = x * y;
-        annualSalary = annualSalary * 52;
+        annualSalary = annualSalary * z;
         return annualSalary;
     }
 
