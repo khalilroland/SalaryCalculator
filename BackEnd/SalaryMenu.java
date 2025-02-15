@@ -1,5 +1,6 @@
-import java.text.DecimalFormat;
-import java.util.Scanner;
+package BackEnd;
+import java.text.*;
+import java.util.*;
 
 /*
  * Magic behind the program, this classs does all the calculations and menu magic

@@ -1,9 +1,10 @@
+package BackEnd;
+import java.util.*;
+
 /*
  * Class used for input validation to ensure user enters correct input to proceed with menu
  * Use "Main.java" to actually run propgram
  */
-
-import java.util.Scanner;
 
 public class PromptsandInput {
  
