@@ -1,8 +1,14 @@
+/*
+ * Class used for input validation to ensure user enters correct input to proceed with menu
+ * Use "Main.java" to actually run propgram
+ */
+
 import java.util.Scanner;
 
 public class PromptsandInput {
  
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
+//validats user input for "yes or no" Prompts, if user enters anything other yes or no, input ask again
       public static String inputValidationYesNo(){
  
         Scanner yn = new Scanner (System.in);
@@ -20,6 +26,7 @@ public class PromptsandInput {
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
+//validats user input for weeks a year Prompts, if user enters anything less then 1 and greater then 52, input ask again, if user enters anything thats not numerical prompts again
     public static int inputValidationWeeksAYear(){
 
         System.out.println("Enter how many weeks of the year you work: ");
@@ -42,6 +49,7 @@ public class PromptsandInput {
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
+//validats user input for days a week Prompts, if user enters anything less then 1 and greater then 7, input ask again, if user enters anything thats not numerical prompts again
     public static int inputValidationDaysOfWeek(){
 
         System.out.println("Enter how many days of the week you work: ");
@@ -64,6 +72,7 @@ public class PromptsandInput {
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
+//validats user input for hours a day worked, if user enters anything less then 1 and greater then 24, input ask again, if user enters anything thats not numerical prompts again
     public static double inputValidationHoursOfDay(){
  
         Scanner hod = new Scanner (System.in);
@@ -88,6 +97,7 @@ public class PromptsandInput {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------
+    //validats user input for pay by hour, if user enters anything thats not numerical prompts again
     public static double inputValidationPayByHour(){
  
         Scanner pbh = new Scanner (System.in);
@@ -110,6 +120,7 @@ public class PromptsandInput {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------
+     //validats user salary, if user enters anything thats not numerical prompts again
     public static double inputValidationSalary(){
         System.out.println("Please enter your annual salary: ");
 
